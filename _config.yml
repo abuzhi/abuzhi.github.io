@@ -23,18 +23,18 @@ baseurl: http://abuzhi.github.io
 paginate: 10
 
 # Markdown Processors
-markdown: redcarpet
-redcarpet:
-  extensions:
-    - hard_wrap
-    - no_intra_emphasis
-    - autolink
-    - strikethrough
-    - tables
-    - lax_spacing
-    - with_toc_data
-
-tagline: A technology blog for myself.
+markdown: kramdown
+#redcarpet:
+#  extensions:
+#    - hard_wrap
+#    - no_intra_emphasis
+#    - autolink
+#    - strikethrough
+#    - tables
+#    - lax_spacing
+#    - with_toc_data
+#
+#tagline: A technology blog for myself.
 
 
 ##### Menu
