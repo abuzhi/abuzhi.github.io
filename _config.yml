@@ -3,7 +3,7 @@ title: abuzhi
 email: abuzhi@163.com
 description: Source of me.
 localurl: "" # the subpath of your site, e.g. /blog/
-url: http://abuzhi.github.io # the base hostname & protocol for your site
+url: https://abuzhi.github.io # the base hostname & protocol for your site
 me-img: "/img/HeadPicture.png"
 
 twitter_username:
@@ -14,7 +14,7 @@ github_username: abuzhi
 permalink: /:categories/:year/:month/:day/:title
 
 exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md"]
-highlighter: pygments
+#highlighter: pygments
 
 assets: http://abuzhi.github.io/assets
 baseurl: http://abuzhi.github.io
