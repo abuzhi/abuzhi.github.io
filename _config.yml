@@ -1,13 +1,13 @@
 # Site settings
-title: sunxiaobiu技术不宅
-email: sunxiaobiu@gmail.com
+title: abuzhi
+email: abuzhi@163.com
 description: Source of me.
 localurl: "" # the subpath of your site, e.g. /blog/
-url: http://sunxiaobiu.github.io # the base hostname & protocol for your site
+url: http://abuzhi.github.io # the base hostname & protocol for your site
 me-img: "/img/HeadPicture.png"
 
 twitter_username:
-github_username: sunxiaobiu
+github_username: abuzhi
 
 # This is the default format.
 # For more see: http://jekyllrb.com/docs/permalinks/
@@ -16,8 +16,8 @@ permalink: /:categories/:year/:month/:day/:title
 exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md"]
 highlighter: pygments
 
-assets: http://sunxiaobiu.github.io/assets
-baseurl: http://sunxiaobiu.github.io
+assets: http://abuzhi.github.io/assets
+baseurl: http://abuzhi.github.io
 
 # pagination
 paginate: 10
@@ -81,7 +81,7 @@ mathjax: false      #enable mathjax if true
 
 #### Author information
 author:
-  name: sunxiaobiu      ## e.g. wuchong Author name
+  name: abuzhi      ## e.g. wuchong Author name
   intro_line1:  "Hello ,I'm Sunxiaoyu in Shanghai."    ## your introduction on the bottom of the page
   intro_line2:  "Too simple, sometimes naive."  ## the 2nd line
   weibo: 5729765191     ## e.g. wuchong1014 or 2176287895 for http://weibo.com/2176287895
