@@ -107,7 +107,7 @@ toc:
 
 #### Links
 links:
-  tcOops's Blog: http://spacenx.pw/
+  tcOops's Blog: https://spacenx.pw/
 
 excerpt_separator: <!--more-->
 
@@ -153,7 +153,7 @@ google_cse:
 baidu_search:     ## http://zn.baidu.com/
   enable: false
   id: ## e.g. "783281470518440642"  for your baidu search id
-  site: http://zhannei.baidu.com/cse/search  ## your can change to your site instead of the default site
+  site: https://zhannei.baidu.com/cse/search  ## your can change to your site instead of the default site
 
 tinysou_search:     ## http://tinysou.com/
   enable: false
