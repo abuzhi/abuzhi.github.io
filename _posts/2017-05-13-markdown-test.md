@@ -2,7 +2,7 @@
 layout: post
 title:  "测试markdown语法"
 categories: MarkDown
-tags:  countdown MarkDown
+tags:  MarkDown
 author: abuzhi
 ---
 
