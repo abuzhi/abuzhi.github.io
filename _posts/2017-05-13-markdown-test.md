@@ -1,8 +1,8 @@
 ---
 layout: post
 title:  "测试markdown语法"
-categories: JavaScript
-tags:  countdown JavaScript
+categories: MarkDown
+tags:  countdown MarkDown
 author: abuzhi
 ---
 
