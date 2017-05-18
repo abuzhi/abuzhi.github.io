@@ -2,7 +2,7 @@
 layout: post
 title:  "JAVA源码--StringBuffer,StringBuilder"
 categories: Java 
-tags:  Java源码 动态扩容 
+tags:  Java源码
 author: abuzhi
 ---
 
@@ -10,11 +10,11 @@ author: abuzhi
 {:toc}
 
 
-
 StringBuffer,StringBuilder,String 类源码实现机制详解
 
-![](https://github.com/abuzhi/abuzhi.github.io/blob/master/images/2017-05-18-JAVA-SRC-StringBuffer-StringBuilder-StringBuffer.jpg)
-![](https://github.com/abuzhi/abuzhi.github.io/blob/master/images/2017-05-18-JAVA-SRC-StringBuffer-StringBuilder-StringBuilder.jpg)
+![](/images/2017-05-18-JAVA-SRC-StringBuffer-StringBuilder-StringBuffer.jpg)
+![](/images/2017-05-18-JAVA-SRC-StringBuffer-StringBuilder-StringBuilder.jpg)
+
 
 
 

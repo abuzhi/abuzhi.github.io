@@ -2,8 +2,8 @@
 layout: post
 title:  "马克飞象"
 date:   2015-02-10 15:14:54
-categories: Markdown
-tags: Markdown
+categories: MarkDown
+tags: MarkDown
 
 ---
 * content

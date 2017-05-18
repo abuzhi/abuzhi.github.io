@@ -12,7 +12,7 @@ author: abuzhi
 
 Kafka作为时下最流行的开源消息系统，被广泛地应用在数据缓冲、异步通信、汇集日志、系统解耦等方面。相比较于RocketMQ等其他常见消息系统，Kafka在保障了大部分功能特性的同时，还提供了超一流的读写性能。
 
-![](https://github.com/abuzhi/abuzhi.github.io/tree/master/images/kafka01.jpg)
+![](/images/kafka01.jpg)
 
 
 
