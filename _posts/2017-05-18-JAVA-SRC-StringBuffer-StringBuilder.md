@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "测试markdown语法"
-categories: MarkDown
-tags:  MarkDown
+title:  "JAVA源码--StringBuffer,StringBuilder"
+categories: Java 
+tags:  Java源码 动态扩容 
 author: abuzhi
 ---
 
@@ -10,17 +10,19 @@ author: abuzhi
 {:toc}
 
 
-Markdown 是一种轻量级标记语言，它允许人们使用易读易写的纯文本格式编写文档，然后转换成格式丰富的HTML页面。    —— [维基百科](https://zh.wikipedia.org/wiki/Markdown)
 
-![](https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=916247856,8046519&fm=23&gp=0.jpg)
+StringBuffer,StringBuilder,String 类源码实现机制详解
+
+![](https://github.com/abuzhi/abuzhi.github.io/tree/master/images/2017-05-18-JAVA-SRC-StringBuffer-StringBuilder-StringBuffer.jpg)
+![](https://github.com/abuzhi/abuzhi.github.io/tree/master/images/2017-05-18-JAVA-SRC-StringBuffer-StringBuilder-StringBuilder.jpg)
 
 
 
 ## Markdown简介
 
-> Markdown 是一种轻量级标记语言，它允许人们使用易读易写的纯文本格式编写文档，然后转换成格式丰富的HTML页面。    —— [维基百科](https://zh.wikipedia.org/wiki/Markdown)
+> 二都都继承自父类AbstractStringBuilder
 
-正如您在阅读的这份文档，它使用简单的符号标识不同的标题，将某些文字标记为**粗体**或者*斜体*，创建一个[链接](http://www.example.com)或一个脚注[^demo]。下面列举了几个高级功能，更多语法请按`Ctrl + /`查看帮助。 
+> 对应方法中，StringBuffer 加入了synchronized所以说是线程安全的
 
 
 ### 代码块 
