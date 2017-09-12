@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  ""
+title:  "Git，TortoiseGit及Git在IDE工具中的使用"
 categories: 开发工具篇 
 tags:   Git ,TortoiseGit , IDEA
 author: abuzhi
