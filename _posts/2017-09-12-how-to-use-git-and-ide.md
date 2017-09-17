@@ -2,7 +2,7 @@
 layout: post
 title:  "Git，TortoiseGit及Git在IDE工具中的使用"
 categories: 开发工具篇 
-tags:   Git ,TortoiseGit , IDEA
+tags:   版本控制, Git ,TortoiseGit , IDEA
 author: abuzhi
 ---
 
@@ -12,8 +12,8 @@ author: abuzhi
 
 Git，TortoiseGit及Git在IDE工具中的使用
 
-![](../images/2017-05-18-JAVA-SRC-StringBuffer-StringBuilder-StringBuffer.jpg)
-![](../images/2017-05-18-JAVA-SRC-StringBuffer-StringBuilder-StringBuilder.jpg)
+![](../images/2017-09-12/.jpg)
+![](../images/2017-09-12/.jpg)
 
 
 

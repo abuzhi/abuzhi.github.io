@@ -1,8 +1,8 @@
 ---
 layout: post
 title:  "JAVA源码--StringBuffer,StringBuilder,String"
-categories: Java 
-tags:  Java源码
+categories: Java篇
+tags:  StringBuffer,StringBuilder,String
 author: abuzhi
 ---
 

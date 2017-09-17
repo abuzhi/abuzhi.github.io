@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "测试markdown语法"
-categories: MarkDown
-tags:  MarkDown
+title:  "JAVA源码--ArrayList,LinkedList,Vestor"
+categories: Java篇
+tags:  Java容器,ArrayList,LinkedList,Vestor
 author: abuzhi
 ---
 

@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Kafka 高性能吞吐揭秘 [转载]"
-categories: Kafka
+categories: 大数据-框架篇
 tags:  Kafka
 author: abuzhi
 ---
