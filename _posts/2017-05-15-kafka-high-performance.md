@@ -12,7 +12,7 @@ author: abuzhi
 
 Kafka作为时下最流行的开源消息系统，被广泛地应用在数据缓冲、异步通信、汇集日志、系统解耦等方面。相比较于RocketMQ等其他常见消息系统，Kafka在保障了大部分功能特性的同时，还提供了超一流的读写性能。
 
-![](/images/kafka01.jpg)
+![](../images/2017-05-15/kafka01.jpg)
 
 
 
@@ -74,3 +74,4 @@ Kafka作为时下最流行的开源消息系统，被广泛地应用在数据缓
     3.    然后用户进程再把数据写入到Socket，数据流入内核区的Socket Buffer上。
     
     4.    OS 再把数据从Buffer中Copy到网卡的Buffer上，这样完成一次发送。
+

@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "JAVA源码--StringBuffer,StringBuilder"
+title:  "JAVA源码--StringBuffer,StringBuilder,String"
 categories: Java 
 tags:  Java源码
 author: abuzhi
@@ -12,8 +12,8 @@ author: abuzhi
 
 StringBuffer,StringBuilder,String 类源码实现机制详解
 
-![](/images/2017-05-18-JAVA-SRC-StringBuffer-StringBuilder-StringBuffer.jpg)
-![](/images/2017-05-18-JAVA-SRC-StringBuffer-StringBuilder-StringBuilder.jpg)
+![](../images/2017-05-18/JAVA-SRC-StringBuffer-StringBuilder-StringBuffer.jpg)
+![](../images/2017-05-18/JAVA-SRC-StringBuffer-StringBuilder-StringBuilder.jpg)
 
 
 
@@ -84,3 +84,57 @@ abstract class AbstractStringBuilder implements Appendable, CharSequence {
 }
 
 ```
+
+## String 的不可变性 
+
+[**String 不可变参考**][1] 
+
+String 的不可变性在其源码中可以看出为什么不可变：
+
+1. String是类型的，不可继承，防止被子类修改
+2. 其本质为char数组，采用了private final修饰，就可以避免我们手动修改数组内的内容。
+
+```java
+/** String本质是个char数组. 而且用final关键字修饰.
+    String是不可变的关键都在底层的实现，而不是一个final
+*/
+
+public final class String
+    implements java.io.Serializable, Comparable<String>, CharSequence {
+    /** The value is used for character storage. */
+    private final char value[];
+
+    /** Cache the hash code for the string */
+    private int hash; // Default to 0
+
+
+    ....
+
+    ....
+
+}
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ [1]: https://www.zhihu.com/question/20618891
