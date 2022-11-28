@@ -1,0 +1,704 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="abuzhi">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="content{:toc}  Java程序Log框架梳理及冲突解决  一、Log框架简介java的log框架分为两类： 记录型日志框架: 具体实现log功能的框架，也就是代码运行时，真正append log数据的框架，目前有四个 Log4j  ： 最初的log框架J.U.L ：jdk自带的log类，(java.util.logging) 也常称为JDKLog、jdk-logging，自Java1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java程序Log框架梳理及冲突解决">
+<meta property="og:url" content="http://example.com/2021/08/01/2021-08-01-java-log-frameworks/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="content{:toc}  Java程序Log框架梳理及冲突解决  一、Log框架简介java的log框架分为两类： 记录型日志框架: 具体实现log功能的框架，也就是代码运行时，真正append log数据的框架，目前有四个 Log4j  ： 最初的log框架J.U.L ：jdk自带的log类，(java.util.logging) 也常称为JDKLog、jdk-logging，自Java1">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/2021-08-01/image2021-3-10_18_52_25.png">
+<meta property="og:image" content="http://example.com/images/2021-08-01/image2021-3-10_18_52_25.png">
+<meta property="og:image" content="http://example.com/images/2021-08-01/image2021-3-10_18_27_25.png">
+<meta property="og:image" content="http://example.com/images/2021-08-01/image2021-3-10_18_15_39.png">
+<meta property="og:image" content="http://example.com/images/2021-08-01/image2021-3-10_18_24_3.png">
+<meta property="og:image" content="http://example.com/images/2021-08-01/image2021-3-10_18_24_3.png">
+<meta property="article:published_time" content="2021-08-01T18:32:00.000Z">
+<meta property="article:modified_time" content="2022-11-28T07:41:52.342Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Java Log">
+<meta property="article:tag" content="Log4j">
+<meta property="article:tag" content="Slf4j">
+<meta property="article:tag" content="logback">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/images/2021-08-01/image2021-3-10_18_52_25.png">
+  
+  
+  
+  <title>Java程序Log框架梳理及冲突解决 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Java程序Log框架梳理及冲突解决"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-08-01 18:32" pubdate>
+          2021年8月1日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          16 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Java程序Log框架梳理及冲突解决</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <ul>
+<li>content<br>{:toc}</li>
+</ul>
+<p>Java程序Log框架梳理及冲突解决</p>
+<p><img src="/images/2021-08-01/image2021-3-10_18_52_25.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="一、Log框架简介"><a href="#一、Log框架简介" class="headerlink" title="一、Log框架简介"></a>一、Log框架简介</h2><p>java的log框架分为两类：</p>
+<p>记录型日志框架: 具体实现log功能的框架，也就是代码运行时，真正append log数据的框架，目前有四个</p>
+<p>Log4j  ： 最初的log框架<br>J.U.L ：jdk自带的log类，(java.util.logging) 也常称为JDKLog、jdk-logging，自Java1.4以来的官方日志实现。<br>Log4j2-core ：log4j的升级版，有很多<br>Logback：log4j2诞生前做的相对log4j的大优化框架，性能比log4j高很多，与log4j2差不多</p>
+<p>门面型日志框架:  为了能在大项目中，合并各log实现框架的冲突问题，开发出的桥接类型的日志框架，里面无具体日志append实现，只有接口。即面向接口编程的框架，目前有两个：</p>
+<p>SLF4J：用的比较多的桥接日志框架，桥类比较多，也是比较头疼的一个,全称Simple Logging Facade for Java。官网 <a target="_blank" rel="noopener" href="http://www.slf4j.org/">http://www.slf4j.org/</a><br>J.C.L：在slf4j诞生前，apache开发的桥类，以前叫 (Jakarta Commons Logging)，也叫 Apache Common logging，现在叫 (commons-logging)<br>Log4j-api: Log4j 2.x 后，将log4j的接口独立的包</p>
+<h2 id="二、Log框架的演化"><a href="#二、Log框架的演化" class="headerlink" title="二、Log框架的演化"></a>二、Log框架的演化</h2><p>要明白log框架目前的混乱问题，我们得先理一下其发展过程，整明白各日志框架间的关系</p>
+<p><img src="/images/2021-08-01/image2021-3-10_18_52_25.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="2-1-蛮荒时代：System-out和System-err"><a href="#2-1-蛮荒时代：System-out和System-err" class="headerlink" title="2.1 蛮荒时代：System.out和System.err"></a>2.1 蛮荒时代：System.out和System.err</h3><p>在java 1.4之前，java自己没有自带的log实现，所有的日志统计都是以System.out和System.err进行输出的。麻烦，不可配置，不灵活。</p>
+<p>此时间应该是在jdk1.4发布之前的情况，时间上应该是2002年之前</p>
+<h3 id="2-2-最初统一：log4j-的诞生"><a href="#2-2-最初统一：log4j-的诞生" class="headerlink" title="2.2 最初统一：log4j 的诞生"></a>2.2 最初统一：log4j 的诞生</h3><p>在1996年初，E.U.SEMPER（欧洲安全电子市场）项目决定编写自己的跟踪API，最后该API演变为Log4j，Log4j日志软件包一经推出就备受欢迎，这里有一个主要贡献者：Ceki Gülcü，记住这个人，一切才刚刚开始。。。</p>
+<p>后来Log4j成为了Apache基金会项目中的一员，同时Log4j的火爆，让Log4j一度成为业内日志标杆。（据说Apache基金会还曾经建议Sun引入Log4j到java的标准库中，但是sun拒绝了）</p>
+<p>此日志一直在大规模使用，目前也还有好多框架是用的这个，虽然Log4j项目已经在2015年 End Of Life了。。但是，挡不住一直有人用哇。。。</p>
+<p><img src="/images/2021-08-01/image2021-3-10_18_27_25.png" srcset="/img/loading.gif" lazyload> </p>
+<h3 id="2-3-Java跟风：JUL（java-util-logging）发布"><a href="#2-3-Java跟风：JUL（java-util-logging）发布" class="headerlink" title="2.3 Java跟风：JUL（java.util.logging）发布"></a>2.3 Java跟风：JUL（java.util.logging）发布</h3><p>Sun没有直接将log4j放入jdk组件中，而是自己仿照log4j 实现了一套自己的日志库，即java.util.logging。。。</p>
+<p>从2002年2月发布jdk1.4开始，java中就自带有自己的log框架了。</p>
+<p>真的是仿照（或许叫抄袭？），毕竟log4j流行那么久了。但是使用起来，还是没有log4j好用。</p>
+<p>这就尴尬了，自带的不行，但是起码有人在用。</p>
+<h3 id="2-4-混乱初阶：JCL-（Jakarta-Commons-Logging）发布"><a href="#2-4-混乱初阶：JCL-（Jakarta-Commons-Logging）发布" class="headerlink" title="2.4 混乱初阶：JCL （Jakarta Commons Logging）发布"></a>2.4 混乱初阶：JCL （Jakarta Commons Logging）发布</h3><p>Sun自带了jul日志，之前的log4j还归属于apache，这里就有问题了，用户开发程序引入不同的日志类型时，就容易冲突或者导致打日志混乱的问题。所以apache推出了第一个接口类型日志框架：JCL。</p>
+<p>当然初始目的是好的，让用户可以在Log4j和JUL日志框架间进行自由切换。这里面还有个坑，JCL自带了个默认实现，就是Simple Log ，这个日志实现导致实际上有了三种日志实现框架。</p>
+<p>看第一版发布日期，应该是apache想和Sun对干或者想统一日志江湖。与Sun JUL发布相差6个月。</p>
+<p>这个框架应该是没有Ceki 参与，<br>S<br><img src="/images/2021-08-01/image2021-3-10_18_15_39.png" srcset="/img/loading.gif" lazyload> </p>
+<p>实际使用中，虽然JCL能实现日志框架的统一，比较优雅，但是使用中遇到的问题还是很多。</p>
+<p>有个吐槽，说明一切<br><img src="/images/2021-08-01/image2021-3-10_18_24_3.png" srcset="/img/loading.gif" lazyload> </p>
+<p>jcl 推出后，log的统一可以如下：<br><img src="/images/2021-08-01/image2021-3-10_18_24_3.png" srcset="/img/loading.gif" lazyload> </p>
+<h3 id="2-5-争霸开始：Slf4j-接口框架和桥的诞生"><a href="#2-5-争霸开始：Slf4j-接口框架和桥的诞生" class="headerlink" title="2.5 争霸开始：Slf4j 接口框架和桥的诞生"></a>2.5 争霸开始：Slf4j 接口框架和桥的诞生</h3><p>大神来了</p>
+<p>2006年，Log4j的作者Ceki Gülcü离开Apache后，觉得J.C.L这套接口设计的不好，容易让开发者写出有性能问题的代码。</p>
+<p>也是仿照J.C.L的接口类，自己搞出了一套接口框架，就是Slf4j。</p>
+<p>但是Slf4j只有接口，没有实现，大神也没有能力去推动apache log4j 和sun log 去实现Slf4j的接口，这里就体现出大神的牛逼了，自己写各适配器。。。</p>
+<p>适配器可解决一切，桥接是万能的。。哈哈哈。。。这里就开始出现混乱的东西了：</p>
+<p>大神先写了桥接jul和log4j的包，结构如下</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Java/" class="category-chain-item">Java</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Java/LogFramework/" class="category-chain-item">LogFramework</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Java-Log/">#Java Log</a>
+      
+        <a href="/tags/Log4j/">#Log4j</a>
+      
+        <a href="/tags/Slf4j/">#Slf4j</a>
+      
+        <a href="/tags/logback/">#logback</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Java程序Log框架梳理及冲突解决</div>
+      <div>http://example.com/2021/08/01/2021-08-01-java-log-frameworks/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>abuzhi</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年8月1日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/11/01/2022-11-01-mysql-8.x-win-config/" title="mysql8.x 搭建及配置">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">mysql8.x 搭建及配置</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/05/18/2017-05-18-JAVA-SRC-StringBuffer-StringBuilder/" title="JAVA源码--StringBuffer,StringBuilder,String">
+                        <span class="hidden-mobile">JAVA源码--StringBuffer,StringBuilder,String</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
