@@ -5,14 +5,8 @@ date: 2017-05-18 18:32:00
 categories: [Java, 开发工具]
 tags: [版本控制, Git ,TortoiseGit , IDEA]
 ---
-* content
-{:toc}
-
 
 Git，TortoiseGit及Git在IDE工具中的使用
-
-
-
 
 --------------------
 

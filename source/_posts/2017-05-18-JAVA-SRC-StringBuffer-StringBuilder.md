@@ -5,14 +5,11 @@ date: 2021-05-18 18:32:00
 categories: [Java, SourceCode]
 tags: [StringBuffer, StringBuilder, String]
 ---
-* content
-{:toc}
-
 
 StringBuffer,StringBuilder,String 类源码实现机制详解
 
-![](/images/2017-05-18/JAVA-SRC-StringBuffer-StringBuilder-StringBuffer.jpg){: .normal }
-![](/images/2017-05-18/JAVA-SRC-StringBuffer-StringBuilder-StringBuilder.jpg){: .normal }
+![](/images/2017-05-18/JAVA-SRC-StringBuffer-StringBuilder-StringBuffer.jpg)
+![](/images/2017-05-18/JAVA-SRC-StringBuffer-StringBuilder-StringBuilder.jpg)
 
 
 

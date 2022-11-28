@@ -5,15 +5,10 @@ date: 2021-08-01 18:32:00
 categories: [Java, LogFramework]
 tags: [Java Log, Log4j, Slf4j, logback]
 ---
-* content
-{:toc}
-
 
 Java程序Log框架梳理及冲突解决
 
 ![](/images/2021-08-01/image2021-3-10_18_52_25.png)
-
-
 
 ## 一、Log框架简介
 
