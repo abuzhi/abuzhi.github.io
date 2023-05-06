@@ -8,8 +8,6 @@ tags: [Java,SpringBoot]
 
 Spring启动初始化及关闭前执行方法探究
 
-![](/images/2023-05-01/ApplicationEvent.png)
-
 
 # 前言
 
@@ -355,7 +353,7 @@ public ConfigurableApplicationContext run(String... args) {
 
 **过程如下：**
 
-![](/images/2023-05-01/spring-boot-start.png)
+![](/images/2023-05-01/apprun.jpg)
 
 
 ## 步骤1和2，InitializingBean和PostConstruct
