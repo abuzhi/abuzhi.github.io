@@ -8,6 +8,7 @@ tags: [Java,SpringBoot]
 
 Spring启动初始化及关闭前执行方法探究
 
+[TOC]
 
 # 前言
 
