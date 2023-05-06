@@ -12,19 +12,15 @@ Spring启动初始化及关闭前执行方法探究
 # 前言
 
 最近项目中有用到spring boot及web，在初始化执行方法时，遇到了重复执行的问题。
-
 为查找原因，现对spring启动及关闭相关流程进行简单探究，主要针对spring 容器启动完成后，想预期执行某些初始化方法的执行，及关闭前执行方法。
-
 另外需要深入理清Listener模式下的各Event事件触发的顺序及情景。
-
 新建spring boot web项目，加入常用的一些初始化方法及关闭前方法。
-
-项目结构
+**项目结构：**
 
 ![](/images/2023-05-01/project.png)
 
 
-主方法
+**主方法：**
 
 ```java
 public static void main(String[] args) {
@@ -51,7 +47,6 @@ public static void main(String[] args) {
 # Spring启动初始化方法
 
 spring启动后加载方式一般有如下几种
-
 另外，spring如果用的xml方式声明bean，也可以在xml中进行init ，pre destroy等配置，这里暂不讨论。
 
 ## CommandLineRunner 接口
@@ -135,7 +130,7 @@ public class InitPostConstruct {
 目前发现有三种方式：
 
 
-## @PreDestroy注解
+## PreDestroy注解
 
 ```java
 @Component
@@ -204,7 +199,6 @@ public class CloseListenerExitCodeEvent implements ApplicationListener<ExitCodeE
 # 启动加载及关闭的执行顺序
 
 写一个web demo，加入各不同的方式，每个方法执行3s，观察输出
-
 输出日志简略如下：
 
 ```shell
@@ -269,12 +263,10 @@ Disconnected from the target VM, address: '127.0.0.1:7070', transport: 'socket'
 
 要搞清楚各触发阶段，需要跟进源码中观察，后再根据源码流程，梳理出event事件的顺序
 
-## 启动初始化及关闭流程源码执行
+## 源码执行
 
 源码太多，跟进后，画了一个时序图，可以直观明了的看到各加载时间顺序。
-
 这里只重点标明各初始化及关闭前的各方法触发节点，不对spring加载过程做细说，如想了解可参考其他博客文章
-
 **主要代码在SpringApplication.run和AbstractApplicationContext.refresh两个方法中**
 
 ```java
@@ -351,7 +343,7 @@ public ConfigurableApplicationContext run(String... args) {
 
 ```
 
-**过程如下：**
+## 执行时序图
 
 ![](/images/2023-05-01/apprun.jpg)
 
@@ -359,9 +351,7 @@ public ConfigurableApplicationContext run(String... args) {
 ## 步骤1和2，InitializingBean和PostConstruct
 
 在AbstractApplicationContext 中的finishBeanFactoryInitialization方法中完成的，是在各bean完成初始化后，执行init method时执行的。
-
 这两个属于同级别的执行，执行顺序上以源码顺序为主，
-
 所以，如果在同一个类中即实现了InitializingBean接口，同时也加入了PostConstruct注解，如：
 
 ![](/images/2023-05-01/InitializingBean.png)
@@ -398,62 +388,79 @@ public class InitPostConstruct implements InitializingBean {
 ## 步骤3，ServletWebServerInitializedEvent
 
 spring getLifecycleProcessor().onRefresh() 加载各bean完成，web容器初始化成功后，
-
 WebServerStartStopLifecycle触发ServletWebServerInitializedEvent事件，
-
 由于ServletWebServerInitializedEvent是继承自WebServerInitializedEvent，所以此事件也会触发。
-
 这里实际会触发两个event：ServletWebServerInitializedEvent , WebServerInitializedEvent
 
+![](/images/2023-05-01/ServletWebServerInitializedEvent.png)
 
-步骤4，ContextRefreshedEvent
+## 步骤4，ContextRefreshedEvent
+
 执行完refresh最后，直接触发ContextRefreshedEvent事件，
 ContextRefreshedEvent的父类ApplicationContextEvent也同时会触发一次
 本调用也是触发了两个事件：ContextRefreshedEvent，ApplicationContextEvent
 执行完后，SpringApplication run中的afterRefresh执行结束
 
+![](/images/2023-05-01/ContextRefreshedEvent.png)
 
-步骤5，listeners.started 相关事件
+
+## 步骤5，listeners.started 相关事件
+
 这里触发的是spring start启动完成后的event事件：
 ApplicationStartedEvent及其父类SpringApplicationEvent;
 AvailabilityChangeEvent及其父类PayloadApplicationEvent;
 
-步骤6，callRunners
+## 步骤6，callRunners
+
 这里触发两个runner：ApplicationRunner，CommandLineRunner
 同级执行
 
+![](/images/2023-05-01/callRunners.png)
 
-步骤7，listeners.ready 相关事件
+
+## 步骤7，listeners.ready 相关事件
+
 spring web启动完成后触发的事件，
 ApplicationReadyEvent及其父类SpringApplicationEvent；
 AvailabilityChangeEvent及其父类PayloadApplicationEvent；
 
-步骤8，exit
+## 步骤8，exit
 ExitCodeEvent 触发：当SpringApplication.exit(context, (ExitCodeGenerator) () -> 1); exit code为非0时触发
 
-步骤9，ContextClosedEvent
+## 步骤9，ContextClosedEvent
+
 触发spring close event事件：
+
 AvailabilityChangeEvent及其父类PayloadApplicationEvent；
+
 ContextClosedEvent及其父类ApplicationContextEvent；
 
+![](/images/2023-05-01/ContextClosedEvent.png)
 
-步骤10和11，最后处理
+
+## 步骤10和11，最后处理
+
 步骤10先调用bean的@PreDestroy 注解的方法
 步骤11，spring关闭后，jvm触发shutdown hook：
+```java
 Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
     @Override
     public void run() {
         ClosePreHook.close();
     }
 }));
+```
 
-梳理Listener模式下的各Event
+
+## Listener模式下的各Event
 在springboot及web开发中，常用主要的几个event类在下面几个包中，这里不讨论spring data，spring cloud相关的event，大体上是一样的
 org.springframework.context.event 
 org.springframework.boot.context.event
 org.springframework.boot.web.context
 基础类都继承自 org.springframework.context.ApplicationEvent
 关系如下图，这里有spring boot下的7个，context下4个，web下3个，另有几个单独的，如果再加入spring data，cloud，jpa等相关的就很多了，这里只讨论基础常用的下图中这些
+
+![](/images/2023-05-01/ApplicationEvent.png)
 
 先搞清楚各event事件的类关系，各event类顶层是ApplicationEvent抽象类，子类有五个常用
 ApplicationEvent
@@ -463,18 +470,22 @@ ApplicationEvent
 - WebServerInitializedEvent
 - SpringApplicationEvent
 
-其中需要注意的是几个容易重复触发的事件：
-SpringApplicationEvent，PayloadApplicationEvent，ApplicationContextEvent
-这三个类调用基本是由于子类触发的，如果同一个项目中，如果有同时声明父类和子类的触发，则很容易触发父类的方法两次，所以谨慎使用上面三个事件，子类也在不同情况下会有可能触发两次
-所以，按需求，在不同的阶段进行调用。推荐最好都不用event进行初始化或者关闭前执行方法
+**其中需要注意的是几个容易重复触发的事件：**
+**SpringApplicationEvent，PayloadApplicationEvent，ApplicationContextEvent**
+**这三个类调用基本是由于子类触发的，如果同一个项目中，如果有同时声明父类和子类的触发，则很容易触发父类的方法两次，所以谨慎使用上面三个事件，子类也在不同情况下会有可能触发两次**
+**所以，按需求，在不同的阶段进行调用。推荐最好都不用event进行初始化或者关闭前执行方法**
 
-加入apm后event加载两次问题
+# 加入apm后event加载两次问题
+
 项目中出现问题是主程序引入了apm agent后，有两次触发的情况，对上面demo代码加入apm 配置：
 application.metrics.name=boot_web_@spring.profiles.active@
 management.endpoints.web.base-path=/
 management.endpoints.web.exposure.include=prometheus,health,info,metrics,env
 management.server.port=12345
+
 启动后，执行相同的代码，日志输出如下：
+
+```shell
 2023-05-06 16:28:21.138 default [main] INFO  com.xiao.demo.boot.WebStarter[640] - The following 1 profile is active: "dev"
 2023-05-06 16:28:21.836 default [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer[108] - Tomcat initialized with port(s): 18080 (http)
 2023-05-06 16:28:21.842 default [main] INFO  o.a.coyote.http11.Http11NioProtocol[173] - Initializing ProtocolHandler ["http-nio-18080"]
@@ -544,23 +555,24 @@ context 启动成功
 2023-05-06 16:31:46.651 default [main] INFO  com.zaxxer.hikari.HikariDataSource[352] - HikariPool-1 - Shutdown completed.
 Disconnected from the target VM, address: '127.0.0.1:11460', transport: 'socket'
 
-Process finished with exit code 0
-
+```
 
 加入apm agent后，由于启动时实际是启动了两个web server对应两个不同的web端口，一个是本应用的端口18080，另外一个为apm 收集metrics的端口12345
 所以实际启动中，会触发两次web 初始化event，content refresh event，change event等，如果预期初始化的方法写在了用listener 实现，那么有极大可能导致方法会执行两次以上
-本来在无apm时加载一次的event方法，在此情景下也可能加载两次。
-所以不推荐使用event方式去进行初始化和关闭前执行
-总结用法及注意事项
-1.初始化加载时
-参考上面启动及关闭的流程，可知整个过程中，有可能触发两次的是event事件中的三个SpringApplicationEvent，PayloadApplicationEvent，ApplicationContextEvent，最好不要使用
-InitializingBean 和@PostConstruct 最早加载，推荐无动态参数启动需要的情况下，优先使用。
-ApplicationRunner和CommandLineRunner在初始化bean及web启动后执行，可以在需要动态传入启动参数的情况下，优先使用。
-如果确实非常有需要监听容器的启动关闭等过程，推荐使用明确的子类事件，且要确实明白每个event的加载时机。
-最好是尽量不用event方式进行初始化,上面两个方式足够使用了。
+**本来在无apm时加载一次的event方法，在此情景下也可能加载两次。**
+**所以不推荐使用event方式去进行初始化和关闭前执行**
 
-2.关闭应用前执行
-推荐主要还是以PreDestroy为主
+# 总结用法及注意事项
+
+## 1.初始化加载时
+参考上面启动及关闭的流程，可知整个过程中，有可能触发两次的是event事件中的三个SpringApplicationEvent，PayloadApplicationEvent，ApplicationContextEvent，最好不要使用
+InitializingBean 和@PostConstruct 最早加载，**推荐无动态参数启动需要的情况下，优先使用。**
+ApplicationRunner和CommandLineRunner在初始化bean及web启动后执行，**在需要动态传入启动参数的情况下，优先使用。**
+如果确实非常有需要监听容器的启动关闭等过程，推荐使用明确的子类事件，且要确实明白每个event的加载时机。
+**最好是尽量不用event方式进行初始化,上面两个方式足够使用。**
+
+## 2.关闭应用前执行
+**推荐主要还是以PreDestroy为主**
 hook方式也可以，但是写代码就多一些。
 event close方式不推荐，有重复执行的可能
 
