@@ -1,7 +1,7 @@
 ---
 title: 用Linux桌面版替带windows办公
 author: abuzhi
-date: 2023-05-01 18:32:00
+date: 2024-04-11 18:32:00
 categories: [Linux]
 tags: [Linux,Mint,Ubuntu]
 ---
