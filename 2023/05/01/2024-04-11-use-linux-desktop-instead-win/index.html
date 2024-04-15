@@ -18,32 +18,24 @@
   <meta name="author" content="abuzhi">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Java程序Log框架梳理及冲突解决  一、Log框架简介java的log框架分为两类： 记录型日志框架: 具体实现log功能的框架，也就是代码运行时，真正append log数据的框架，目前有四个 Log4j  ： 最初的log框架J.U.L ：jdk自带的log类，(java.util.logging) 也常称为JDKLog、jdk-logging，自Java1.4以来的官方日志实现。Log4">
+    <meta name="description" content="用Linux桌面版替带windows办公 [TOC] 0. Linux桌面版替换Windows办公的可行性鉴于日常工作中的一些特殊应用场景，需要在linux中进行部分开发工作，每次win和linux切换开发有点不方便，不如直接全转为linux内进行开发。办公windows转为linux系统的一些前提条件：   对office工具日常需求不高，只需要能打开excel查看，简单函数即可，word，pp">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java程序Log框架梳理及冲突解决">
-<meta property="og:url" content="https://abuzhi.github.io/2021/08/01/2021-08-01-java-log-frameworks/index.html">
+<meta property="og:title" content="用Linux桌面版替带windows办公">
+<meta property="og:url" content="https://abuzhi.github.io/2023/05/01/2024-04-11-use-linux-desktop-instead-win/index.html">
 <meta property="og:site_name" content="源于未知">
-<meta property="og:description" content="Java程序Log框架梳理及冲突解决  一、Log框架简介java的log框架分为两类： 记录型日志框架: 具体实现log功能的框架，也就是代码运行时，真正append log数据的框架，目前有四个 Log4j  ： 最初的log框架J.U.L ：jdk自带的log类，(java.util.logging) 也常称为JDKLog、jdk-logging，自Java1.4以来的官方日志实现。Log4">
+<meta property="og:description" content="用Linux桌面版替带windows办公 [TOC] 0. Linux桌面版替换Windows办公的可行性鉴于日常工作中的一些特殊应用场景，需要在linux中进行部分开发工作，每次win和linux切换开发有点不方便，不如直接全转为linux内进行开发。办公windows转为linux系统的一些前提条件：   对office工具日常需求不高，只需要能打开excel查看，简单函数即可，word，pp">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://abuzhi.github.io/images/2021-08-01/image2021-3-10_18_52_25.png">
-<meta property="og:image" content="https://abuzhi.github.io/images/2021-08-01/image2021-3-10_18_52_25.png">
-<meta property="og:image" content="https://abuzhi.github.io/images/2021-08-01/image2021-3-10_18_27_25.png">
-<meta property="og:image" content="https://abuzhi.github.io/images/2021-08-01/image2021-3-10_18_15_39.png">
-<meta property="og:image" content="https://abuzhi.github.io/images/2021-08-01/image2021-3-10_18_24_3.png">
-<meta property="og:image" content="https://abuzhi.github.io/images/2021-08-01/image2021-3-10_18_24_3.png">
-<meta property="article:published_time" content="2021-08-01T18:32:00.000Z">
+<meta property="article:published_time" content="2023-05-01T18:32:00.000Z">
 <meta property="article:modified_time" content="2024-04-15T03:24:17.850Z">
 <meta property="article:author" content="未知">
-<meta property="article:tag" content="Java Log">
-<meta property="article:tag" content="Log4j">
-<meta property="article:tag" content="Slf4j">
-<meta property="article:tag" content="logback">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Mint">
+<meta property="article:tag" content="Ubuntu">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://abuzhi.github.io/images/2021-08-01/image2021-3-10_18_52_25.png">
   
   
   
-  <title>Java程序Log框架梳理及冲突解决 - 源于未知</title>
+  <title>用Linux桌面版替带windows办公 - 源于未知</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -229,7 +221,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">Java程序Log框架梳理及冲突解决</span>
+            <span id="subtitle">用Linux桌面版替带windows办公</span>
           
         </div>
 
@@ -240,8 +232,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2021-08-01 18:32" pubdate>
-          2021年8月1日 晚上
+        <time datetime="2023-05-01 18:32" pubdate>
+          2023年5月1日 晚上
         </time>
       </span>
     
@@ -252,7 +244,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.9k 字
+          2.2k 字
         
       </span>
     
@@ -263,7 +255,7 @@
         
         
         
-          16 分钟
+          19 分钟
         
       </span>
     
@@ -314,43 +306,106 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Java程序Log框架梳理及冲突解决</h1>
+            <h1 style="display: none">用Linux桌面版替带windows办公</h1>
             
             
               <div class="markdown-body">
                 
-                <p>Java程序Log框架梳理及冲突解决</p>
-<p><img src="/images/2021-08-01/image2021-3-10_18_52_25.png" srcset="/img/loading.gif" lazyload></p>
-<h2 id="一、Log框架简介"><a href="#一、Log框架简介" class="headerlink" title="一、Log框架简介"></a>一、Log框架简介</h2><p>java的log框架分为两类：</p>
-<p>记录型日志框架: 具体实现log功能的框架，也就是代码运行时，真正append log数据的框架，目前有四个</p>
-<p>Log4j  ： 最初的log框架<br>J.U.L ：jdk自带的log类，(java.util.logging) 也常称为JDKLog、jdk-logging，自Java1.4以来的官方日志实现。<br>Log4j2-core ：log4j的升级版，有很多<br>Logback：log4j2诞生前做的相对log4j的大优化框架，性能比log4j高很多，与log4j2差不多</p>
-<p>门面型日志框架:  为了能在大项目中，合并各log实现框架的冲突问题，开发出的桥接类型的日志框架，里面无具体日志append实现，只有接口。即面向接口编程的框架，目前有两个：</p>
-<p>SLF4J：用的比较多的桥接日志框架，桥类比较多，也是比较头疼的一个,全称Simple Logging Facade for Java。官网 <a target="_blank" rel="noopener" href="http://www.slf4j.org/">http://www.slf4j.org/</a><br>J.C.L：在slf4j诞生前，apache开发的桥类，以前叫 (Jakarta Commons Logging)，也叫 Apache Common logging，现在叫 (commons-logging)<br>Log4j-api: Log4j 2.x 后，将log4j的接口独立的包</p>
-<h2 id="二、Log框架的演化"><a href="#二、Log框架的演化" class="headerlink" title="二、Log框架的演化"></a>二、Log框架的演化</h2><p>要明白log框架目前的混乱问题，我们得先理一下其发展过程，整明白各日志框架间的关系</p>
-<p><img src="/images/2021-08-01/image2021-3-10_18_52_25.png" srcset="/img/loading.gif" lazyload></p>
-<h3 id="2-1-蛮荒时代：System-out和System-err"><a href="#2-1-蛮荒时代：System-out和System-err" class="headerlink" title="2.1 蛮荒时代：System.out和System.err"></a>2.1 蛮荒时代：System.out和System.err</h3><p>在java 1.4之前，java自己没有自带的log实现，所有的日志统计都是以System.out和System.err进行输出的。麻烦，不可配置，不灵活。</p>
-<p>此时间应该是在jdk1.4发布之前的情况，时间上应该是2002年之前</p>
-<h3 id="2-2-最初统一：log4j-的诞生"><a href="#2-2-最初统一：log4j-的诞生" class="headerlink" title="2.2 最初统一：log4j 的诞生"></a>2.2 最初统一：log4j 的诞生</h3><p>在1996年初，E.U.SEMPER（欧洲安全电子市场）项目决定编写自己的跟踪API，最后该API演变为Log4j，Log4j日志软件包一经推出就备受欢迎，这里有一个主要贡献者：Ceki Gülcü，记住这个人，一切才刚刚开始。。。</p>
-<p>后来Log4j成为了Apache基金会项目中的一员，同时Log4j的火爆，让Log4j一度成为业内日志标杆。（据说Apache基金会还曾经建议Sun引入Log4j到java的标准库中，但是sun拒绝了）</p>
-<p>此日志一直在大规模使用，目前也还有好多框架是用的这个，虽然Log4j项目已经在2015年 End Of Life了。。但是，挡不住一直有人用哇。。。</p>
-<p><img src="/images/2021-08-01/image2021-3-10_18_27_25.png" srcset="/img/loading.gif" lazyload> </p>
-<h3 id="2-3-Java跟风：JUL（java-util-logging）发布"><a href="#2-3-Java跟风：JUL（java-util-logging）发布" class="headerlink" title="2.3 Java跟风：JUL（java.util.logging）发布"></a>2.3 Java跟风：JUL（java.util.logging）发布</h3><p>Sun没有直接将log4j放入jdk组件中，而是自己仿照log4j 实现了一套自己的日志库，即java.util.logging。。。</p>
-<p>从2002年2月发布jdk1.4开始，java中就自带有自己的log框架了。</p>
-<p>真的是仿照（或许叫抄袭？），毕竟log4j流行那么久了。但是使用起来，还是没有log4j好用。</p>
-<p>这就尴尬了，自带的不行，但是起码有人在用。</p>
-<h3 id="2-4-混乱初阶：JCL-（Jakarta-Commons-Logging）发布"><a href="#2-4-混乱初阶：JCL-（Jakarta-Commons-Logging）发布" class="headerlink" title="2.4 混乱初阶：JCL （Jakarta Commons Logging）发布"></a>2.4 混乱初阶：JCL （Jakarta Commons Logging）发布</h3><p>Sun自带了jul日志，之前的log4j还归属于apache，这里就有问题了，用户开发程序引入不同的日志类型时，就容易冲突或者导致打日志混乱的问题。所以apache推出了第一个接口类型日志框架：JCL。</p>
-<p>当然初始目的是好的，让用户可以在Log4j和JUL日志框架间进行自由切换。这里面还有个坑，JCL自带了个默认实现，就是Simple Log ，这个日志实现导致实际上有了三种日志实现框架。</p>
-<p>看第一版发布日期，应该是apache想和Sun对干或者想统一日志江湖。与Sun JUL发布相差6个月。</p>
-<p>这个框架应该是没有Ceki 参与，<br>S<br><img src="/images/2021-08-01/image2021-3-10_18_15_39.png" srcset="/img/loading.gif" lazyload> </p>
-<p>实际使用中，虽然JCL能实现日志框架的统一，比较优雅，但是使用中遇到的问题还是很多。</p>
-<p>有个吐槽，说明一切<br><img src="/images/2021-08-01/image2021-3-10_18_24_3.png" srcset="/img/loading.gif" lazyload> </p>
-<p>jcl 推出后，log的统一可以如下：<br><img src="/images/2021-08-01/image2021-3-10_18_24_3.png" srcset="/img/loading.gif" lazyload> </p>
-<h3 id="2-5-争霸开始：Slf4j-接口框架和桥的诞生"><a href="#2-5-争霸开始：Slf4j-接口框架和桥的诞生" class="headerlink" title="2.5 争霸开始：Slf4j 接口框架和桥的诞生"></a>2.5 争霸开始：Slf4j 接口框架和桥的诞生</h3><p>大神来了</p>
-<p>2006年，Log4j的作者Ceki Gülcü离开Apache后，觉得J.C.L这套接口设计的不好，容易让开发者写出有性能问题的代码。</p>
-<p>也是仿照J.C.L的接口类，自己搞出了一套接口框架，就是Slf4j。</p>
-<p>但是Slf4j只有接口，没有实现，大神也没有能力去推动apache log4j 和sun log 去实现Slf4j的接口，这里就体现出大神的牛逼了，自己写各适配器。。。</p>
-<p>适配器可解决一切，桥接是万能的。。哈哈哈。。。这里就开始出现混乱的东西了：</p>
-<p>大神先写了桥接jul和log4j的包，结构如下</p>
+                <p>用Linux桌面版替带windows办公</p>
+<p>[TOC]</p>
+<h1 id="0-Linux桌面版替换Windows办公的可行性"><a href="#0-Linux桌面版替换Windows办公的可行性" class="headerlink" title="0. Linux桌面版替换Windows办公的可行性"></a>0. Linux桌面版替换Windows办公的可行性</h1><p>鉴于日常工作中的一些特殊应用场景，需要在linux中进行部分开发工作，每次win和linux切换开发有点不方便，不如直接全转为linux内进行开发。<br>办公windows转为linux系统的一些前提条件：</p>
+<ul>
+<li><ol>
+<li>对office工具日常需求不高，只需要能打开excel查看，简单函数即可，word，ppt能打开编辑，pdf可打开。</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>java、python开发环境及各种开发工具，都在linux中有完好支持</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>公司内部通讯软件有linux版本</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>日常软件比如笔记、云盘、vpn、输入法、浏览器等都有合适的linux版本</li>
+</ol>
+</li>
+</ul>
+<p>如果日常中对以下要求比较高的话，最好就不要转linux了：</p>
+<ul>
+<li><ol>
+<li>对微软 office等办公套件重度使用</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>steam，epic等打游戏重度要求</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>懒，懒得动，懒得折腾，想省心的。（可以直接mac，最好的linux桌面版）</li>
+</ol>
+</li>
+</ul>
+<p><strong>重要重要重要：先确定个人需求及目标，能够满足并且接受的话，就可以进行下面的操作了</strong></p>
+<p>按下面顺序开始</p>
+<h1 id="1-整理软件需求"><a href="#1-整理软件需求" class="headerlink" title="1. 整理软件需求"></a>1. 整理软件需求</h1><h2 id="1-1-日常软件"><a href="#1-1-日常软件" class="headerlink" title="1.1 日常软件"></a>1.1 日常软件</h2><p>平时用到的非开发类软件，日常交流和基础办公使用</p>
+<h3 id="通讯"><a href="#通讯" class="headerlink" title="通讯"></a>通讯</h3><ul>
+<li>微信，后续可能会退出linux版本，当前只能用wine版，但是很难用，勉强接受。</li>
+<li>公司通讯软件有专用linux版本</li>
+<li>qq，<a target="_blank" rel="noopener" href="https://im.qq.com/linuxqq/index.shtml">https://im.qq.com/linuxqq/index.shtml</a> 有linux版本</li>
+</ul>
+<h3 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h3><ul>
+<li>有道：<a target="_blank" rel="noopener" href="https://note.youdao.com/note-download/">https://note.youdao.com/note-download/</a>  有linux版本</li>
+<li>wiz笔记：<a target="_blank" rel="noopener" href="https://www.wiz.cn/zh-cn/download.html">https://www.wiz.cn/zh-cn/download.html</a>   linux版本</li>
+</ul>
+<h3 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h3><ul>
+<li>压缩解压：7z，<a target="_blank" rel="noopener" href="https://www.7-zip.org/download.html">https://www.7-zip.org/download.html</a> ，linux版本，默认zip工具也可以</li>
+<li>电子书阅读器：<a target="_blank" rel="noopener" href="https://calibre-ebook.com/download">https://calibre-ebook.com/download</a>  ，linux版本</li>
+<li>天翼云盘：<a target="_blank" rel="noopener" href="https://cloud.189.cn/web/static/download-client/index.html">https://cloud.189.cn/web/static/download-client/index.html</a>  ，linux</li>
+<li>VMware：<a target="_blank" rel="noopener" href="https://www.vmware.com/products/workstation-pro/workstation-pro-evaluation.html">https://www.vmware.com/products/workstation-pro/workstation-pro-evaluation.html</a>   ，有对应linux</li>
+<li>搜狗输入法：<a target="_blank" rel="noopener" href="https://shurufa.sogou.com/linux">https://shurufa.sogou.com/linux</a></li>
+<li>截图工具：<a target="_blank" rel="noopener" href="https://zh.snipaste.com/">https://zh.snipaste.com/</a></li>
+</ul>
+<h3 id="办公"><a href="#办公" class="headerlink" title="办公"></a>办公</h3><p>office套件：</p>
+<ul>
+<li>wps替换：<a target="_blank" rel="noopener" href="https://linux.wps.cn/%EF%BC%8C%E6%9C%89linux%EF%BC%8C%E9%99%A4%E4%BA%86%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6%EF%BC%8C%E8%BF%98%E6%9C%89pdf%E7%AD%89%E5%8A%9F%E8%83%BD%EF%BC%8C%E7%BC%BA%E7%82%B9%E6%98%AF%E6%9C%89%E5%B9%BF%E5%91%8A">https://linux.wps.cn/，有linux，除了基础组件，还有pdf等功能，缺点是有广告</a></li>
+<li>开源的LibreOffice：<a target="_blank" rel="noopener" href="https://www.libreoffice.org/download/download-libreoffice/">https://www.libreoffice.org/download/download-libreoffice/</a></li>
+<li>pdf阅读器：Foxit PDF Reader 福昕</li>
+</ul>
+<h3 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h3><p>chrome，firefox在各软件包管理内有，或者直接官网下载最新的，都有linux</p>
+<h3 id="安全"><a href="#安全" class="headerlink" title="安全"></a>安全</h3><p>个人用的卡巴斯基，有对应linux</p>
+<p>但是公司内部的需要安装几个自研的软件，目前看，没有linux版本，eset好像也没有，所以这块替代不了。</p>
+<h3 id="音乐视频"><a href="#音乐视频" class="headerlink" title="音乐视频"></a>音乐视频</h3><ul>
+<li>视频vlc：<a target="_blank" rel="noopener" href="https://www.videolan.org/vlc/#download">https://www.videolan.org/vlc/#download</a>   ，linux</li>
+<li>音乐foobar2000的linux版本 ：<a target="_blank" rel="noopener" href="https://deadbeef.sourceforge.io/download.html">https://deadbeef.sourceforge.io/download.html</a></li>
+<li>qq音乐：<a target="_blank" rel="noopener" href="https://y.qq.com/download/download.html">https://y.qq.com/download/download.html</a>   ，居然有linux</li>
+</ul>
+<h3 id="小工具软件"><a href="#小工具软件" class="headerlink" title="小工具软件"></a>小工具软件</h3><ul>
+<li>桌面日历：<a target="_blank" rel="noopener" href="https://www.rainlendar.net/">https://www.rainlendar.net/</a></li>
+<li>农历：ubuntu lunar date <a target="_blank" rel="noopener" href="https://github.com/yetist/lunar-date">https://github.com/yetist/lunar-date</a></li>
+</ul>
+<h2 id="1-2-开发软件"><a href="#1-2-开发软件" class="headerlink" title="1.2 开发软件"></a>1.2 开发软件</h2><p>工作中用到的开发相关软件和工具</p>
+<h3 id="基础环境"><a href="#基础环境" class="headerlink" title="基础环境"></a>基础环境</h3><ul>
+<li>jdk，maven，python，git等开发工具</li>
+<li>git：<a target="_blank" rel="noopener" href="https://git-scm.com/download/linux%EF%BC%8C">https://git-scm.com/download/linux，</a></li>
+<li>jdk：<a target="_blank" rel="noopener" href="https://www.oracle.com/hk/java/technologies/javase/jdk11-archive-downloads.html">https://www.oracle.com/hk/java/technologies/javase/jdk11-archive-downloads.html</a></li>
+<li>maven：<a target="_blank" rel="noopener" href="https://maven.apache.org/download.cgi">https://maven.apache.org/download.cgi</a></li>
+<li>python：<a target="_blank" rel="noopener" href="https://www.python.org/downloads/">https://www.python.org/downloads/</a></li>
+<li>nodejs：<a target="_blank" rel="noopener" href="https://nodejs.org/en/download">https://nodejs.org/en/download</a></li>
+</ul>
+<h3 id="IDE"><a href="#IDE" class="headerlink" title="IDE"></a>IDE</h3><ul>
+<li>jetbrains全家桶，都有linux版本，包含：IDEA，Webstorm，Pycharm，Datagrid四个基本用</li>
+<li>Visual Studio Code：<a target="_blank" rel="noopener" href="https://code.visualstudio.com/download">https://code.visualstudio.com/download</a></li>
+</ul>
+<h3 id="工具-1"><a href="#工具-1" class="headerlink" title="工具"></a>工具</h3><ul>
+<li>drawio：<a target="_blank" rel="noopener" href="https://github.com/jgraph/drawio-desktop/releases/tag/v24.1.0">https://github.com/jgraph/drawio-desktop/releases/tag/v24.1.0</a></li>
+<li>docker：<a target="_blank" rel="noopener" href="https://docs.docker.com/desktop/install/linux-install/">https://docs.docker.com/desktop/install/linux-install/</a></li>
+<li>redis客户端：<a target="_blank" rel="noopener" href="https://redis.com/redis-enterprise/redis-insight/">https://redis.com/redis-enterprise/redis-insight/</a></li>
+<li>ssh端：直接用自带的terminal</li>
+<li>mysql：官网有</li>
+<li>db工具：<a target="_blank" rel="noopener" href="https://dbeaver.io/download/">https://dbeaver.io/download/</a>  ，支持mysql</li>
+</ul>
 
                 
               </div>
@@ -369,15 +424,8 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Java/" class="category-chain-item">Java</a>
+  <a href="/categories/Linux/" class="category-chain-item">Linux</a>
   
-  
-    <span>></span>
-    
-  <a href="/categories/Java/LogFramework/" class="category-chain-item">LogFramework</a>
-  
-  
-
   
 
       </span>
@@ -391,13 +439,11 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Java-Log/">#Java Log</a>
+        <a href="/tags/Linux/">#Linux</a>
       
-        <a href="/tags/Log4j/">#Log4j</a>
+        <a href="/tags/Mint/">#Mint</a>
       
-        <a href="/tags/Slf4j/">#Slf4j</a>
-      
-        <a href="/tags/logback/">#logback</a>
+        <a href="/tags/Ubuntu/">#Ubuntu</a>
       
     </div>
   
@@ -409,8 +455,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Java程序Log框架梳理及冲突解决</div>
-      <div>https://abuzhi.github.io/2021/08/01/2021-08-01-java-log-frameworks/</div>
+      <div>用Linux桌面版替带windows办公</div>
+      <div>https://abuzhi.github.io/2023/05/01/2024-04-11-use-linux-desktop-instead-win/</div>
     </div>
     <div class="license-meta">
       
@@ -422,7 +468,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2021年8月1日</div>
+          <div>2023年5月1日</div>
         </div>
       
       
@@ -447,18 +493,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/11/01/2022-11-01-mysql-8.x-win-config/" title="mysql8.x 搭建及配置">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">mysql8.x 搭建及配置</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/05/18/2017-05-18-JAVA-SRC-StringBuffer-StringBuilder/" title="JAVA源码--StringBuffer,StringBuilder,String">
-                        <span class="hidden-mobile">JAVA源码--StringBuffer,StringBuilder,String</span>
+                      <a href="/2023/05/01/2023-05-01-spring-boot-start-stop-prepare-method/" title="Spring启动初始化及关闭前执行方法探究">
+                        <span class="hidden-mobile">Spring启动初始化及关闭前执行方法探究</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
